@@ -1,20 +1,22 @@
-use ndarray::{Array2, ArrayView2, ArrayView1};
-use rayon::prelude::*;
+// src/norms.rs
+use ndarray::{Array1, Array2};
 
-pub fn rms_layernorm(
-    input: &ArrayView2<f32>,
-    weight: &ArrayView1<f32>,
+pub struct RmsLayernorm {
+    weight: Array1<f32>,
     eps: f32,
-) -> Array2<f32> {
-    let result: Vec<f32> = input.outer_iter()
-        .par_bridge()
-        .flat_map(|row| {
-            let variance = row.mapv(|x| x.powi(2)).mean().unwrap() + eps;
-            let inv_rms = 1.0 / variance.sqrt();
-            (&row * inv_rms * weight).to_vec()
-        })
-        .collect();
+}
 
-    Array2::from_shape_vec(input.dim(), result)
-        .expect("Failed to create output array")
+impl RmsLayernorm {
+    pub fn new(hidden_size: usize) -> Self {
+        Self {
+            weight: Array1::ones(hidden_size),
+            eps: 1e-6,
+        }
+    }
+
+    pub fn forward(&self, x: &Array2<f32>) -> Array2<f32> {
+        let variance = x.mapv(|v| v.powi(2)).mean().unwrap() + self.eps;
+        let inv_rms = 1.0 / variance.sqrt();
+        x * inv_rms * &self.weight
+    }
 }

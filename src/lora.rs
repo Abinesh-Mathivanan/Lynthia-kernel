@@ -1,7 +1,6 @@
 // src/lora.rs
-use ndarray::{Array2, ArrayView2, linalg::general_mat_mul};
+use ndarray::Array2;
 
-#[derive(Debug, Clone)]
 pub struct LoraLayer {
     base_weight: Array2<f32>,
     lora_a: Array2<f32>,
@@ -19,14 +18,9 @@ impl LoraLayer {
         }
     }
 
-    pub fn forward(&self, x: &ArrayView2<f32>) -> Array2<f32> {
-        let mut base = Array2::zeros((x.shape()[0], self.base_weight.shape()[1]));
-        general_mat_mul(1.0, x, &self.base_weight, 0.0, &mut base);
-
-        let mut lora = Array2::zeros((x.shape()[0], self.lora_a.shape()[1]));
-        general_mat_mul(1.0, x, &self.lora_a, 0.0, &mut lora);
-        general_mat_mul(self.scaling, &lora, &self.lora_b, 0.0, &mut base);
-
-        base
+    pub fn forward(&self, x: &Array2<f32>) -> Array2<f32> {
+        let base = x.dot(&self.base_weight);
+        let lora = x.dot(&self.lora_a).dot(&self.lora_b) * self.scaling;
+        base + lora
     }
 }
