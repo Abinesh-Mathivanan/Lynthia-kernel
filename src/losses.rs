@@ -1,9 +1,7 @@
-// src/losses.rs
 use ndarray::{Array2, ArrayView2, Axis};
 use rayon::prelude::*;
 
 pub fn cross_entropy_loss(logits: &Array2<f32>, labels: &ArrayView2<i32>) -> f32 {
-    // Check for compatible batch sizes and label dimensions
     assert_eq!(
         logits.shape()[0], 
         labels.shape()[0], 
