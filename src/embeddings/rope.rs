@@ -8,7 +8,7 @@ pub fn apply_rope(
     sin: &ArrayView2<f32>,
 ) {
     let (_batch_size, seq_len, n_heads_head_dim) = q.dim();
-    let head_dim = n_heads_head_dim / cos.shape()[1]; // Calculate head_dim from cos/sin dims
+    let head_dim = n_heads_head_dim / cos.shape()[1]; 
 
     q.outer_iter_mut()
         .zip(k.outer_iter_mut())

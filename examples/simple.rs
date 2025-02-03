@@ -9,7 +9,7 @@ fn main() {
 
     let logits = array![[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]; // Shape [2, 3]
     
-    let labels = array![[2i32], [1i32]];  // Class indices for 3 classes
+    let labels = array![[2i32], [1i32]];  
     
     let loss = cross_entropy_loss(&logits, &labels.view());
     println!("Cross entropy loss: {}", loss);

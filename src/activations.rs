@@ -1,4 +1,3 @@
-// src/activations.rs
 use ndarray::{Array2, ArrayView2};
 use rayon::prelude::*;
 
@@ -11,7 +10,7 @@ pub fn swiglu(e: &ArrayView2<f32>, g: &ArrayView2<f32>) -> Array2<f32> {
     let result: Vec<f32> = e
         .iter()
         .zip(g.iter())
-        .par_bridge()  // Convert to parallel iterator
+        .par_bridge()  
         .map(|(e_val, g_val)| {
             let sigmoid = 1.0 / (1.0 + (-*e_val).exp());
             (e_val * sigmoid) * g_val
