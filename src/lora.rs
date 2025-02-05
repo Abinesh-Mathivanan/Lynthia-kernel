@@ -52,6 +52,6 @@ impl LoraLayer {
     }
 
     pub fn update(&mut self) {
-        return;
+        return 0;
     }
 }
