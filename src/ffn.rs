@@ -1,4 +1,3 @@
-// src/ffn.rs
 use ndarray::Array2;
 
 pub struct FeedForward {

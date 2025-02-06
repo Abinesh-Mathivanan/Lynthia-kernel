@@ -1,4 +1,3 @@
-// src/model.rs
 use ndarray::Array2;
 use crate::{attention::MultiHeadAttention, ffn::FeedForward, norms::RmsLayernorm, embedding::Embedding, linear::Linear};
 

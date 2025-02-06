@@ -1,4 +1,3 @@
-// src/quantization.rs
 use ndarray::Array2;
 
 pub fn quantize_4bit(weights: &Array2<f32>) -> (Array2<u8>, f32, f32) {

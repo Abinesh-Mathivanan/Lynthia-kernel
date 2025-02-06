@@ -1,4 +1,3 @@
-// src/attention.rs
 use ndarray::{Array2, Array3};
 
 pub struct MultiHeadAttention {
@@ -22,7 +21,6 @@ impl MultiHeadAttention {
     }
 
     pub fn forward(&self, x: &Array2<f32>) -> Array2<f32> {
-        // Simplified attention mechanism
         let q = x.dot(&self.query);
         let k = x.dot(&self.key);
         let v = x.dot(&self.value);

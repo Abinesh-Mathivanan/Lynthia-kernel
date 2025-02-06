@@ -1,4 +1,3 @@
-// src/norms.rs
 use ndarray::{Array1, Array2};
 
 pub struct RmsLayernorm {

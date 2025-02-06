@@ -1,4 +1,3 @@
-// src/activations.rs
 use ndarray::{Array2, ArrayView2};
 use rayon::prelude::*;
 

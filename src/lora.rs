@@ -1,4 +1,3 @@
-// src/lora.rs
 use ndarray::Array2;
 
 pub struct LoraLayer {
