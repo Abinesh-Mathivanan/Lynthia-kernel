@@ -1,4 +1,4 @@
-use ndarray::{Array2, Array3};
+use ndarray::Array2;
 
 pub struct MultiHeadAttention {
     num_heads: usize,
